@@ -21,6 +21,7 @@ dependencies {
     compileOnly 'org.geysermc.geyser:api:2.2.0'
     compileOnly 'dev.lone:api-itemsadder:4.0.10'
     compileOnly('org.geysermc.geyser:api:2.7.0-SNAPSHOT')
+    compileOnly('org.geysermc.floodgate:api:2.2.4-SNAPSHOT')
 }
 
 // tasks {
