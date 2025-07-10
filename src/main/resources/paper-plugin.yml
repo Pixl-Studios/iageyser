@@ -1,0 +1,4 @@
+name: iageyser
+version: '1.0-SNAPSHOT'
+main: eu.pixlstudios.iageyser.Iageyser
+api-version: '1.21'
