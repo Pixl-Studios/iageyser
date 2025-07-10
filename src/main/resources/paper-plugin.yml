@@ -1,4 +1,10 @@
-name: iageyser
-version: '1.0-SNAPSHOT'
+name: Iageyser
 main: eu.pixlstudios.iageyser.Iageyser
-api-version: '1.21'
+version: 1.0
+api-version: 1.20
+commands:
+  bdconv:
+    description: Convert ItemsAdder blocks/items and register them into Geyser, then restart Geyser.
+    usage: /bdconv
+    permission: iageyser.bdconv
+    permission-message: You do not have permission to use this command.
