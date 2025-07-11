@@ -2,6 +2,7 @@ package eu.pixlstudios.iageyser;
 
 import com.google.common.eventbus.Subscribe;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.lone.itemsadder.api.CustomBlock;
 import dev.lone.itemsadder.api.CustomStack;
@@ -26,15 +27,18 @@ import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.item.custom.CustomItemOptions;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class Iageyser extends JavaPlugin implements Listener {
 
+    private static String UrlIp = "notinit";
     private Object CustomItemOptions;
     FileConfiguration config = getConfig();
     private boolean GeyserLoaded = false;
+    //public String UrlRp = "ianotinit";
     public void sendPackToServer(String URL) {
         //TODO: SEND URL TO SERVER FOR PROCCESSING
     }
@@ -48,23 +52,34 @@ public final class Iageyser extends JavaPlugin implements Listener {
         config.addDefault("enabled", true);
         config.addDefault("restart_on_convert", false);
         config.addDefault("convert_needed", false);
+        try {
+            config.save("config.yml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         getServer().getPluginManager().registerEvents(this, this);
         if (getServer().getMinecraftVersion() == "1.21.6" || getServer().getMinecraftVersion() == "1.21.7") {
             getLogger().warning("1.21.6/1.21.7 Is only supported by ItemsAdder BETA.");
         }
         //TODO: IMPLEMENT COMMAND: /iageyser, reload: type: item, block, both
-        /*;this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-            LiteralCommandNode<CommandSourceStack> buildCommand = Commands.literal("iageyser")
+        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+
+            LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("iageyser")
+                    .requires(sender -> sender.getSender().isOp())
+                    .then(Commands.literal("rpurl"))
+                        .executes(ctx ->{
+                            ctx.getSource().getSender().sendMessage(UrlIp);
+                            return 0;
+                        })
                     .then(Commands.literal("reload")
                         .executes(ctx ->{
                             //TODO: IMPLEMENT PERMISSION CHECK
                             reloadPlugin();
                             return 0;
-                        })
-                    .then(Commands.argument("type", StringArgumentType.string()))
-                    .build();
+                        }));
+            LiteralCommandNode<CommandSourceStack> buildCommand = command.build();
+            commands.registrar().register(buildCommand);
         });
-         */
 
     }
 
@@ -99,7 +114,6 @@ public final class Iageyser extends JavaPlugin implements Listener {
     }
     @Subscribe
     public void ResourcePackSendEvent(ResourcePackSendEvent event){
-        String URL;
-        URL = event.getUrl();
+        UrlIp = event.getUrl();
     }
 }
