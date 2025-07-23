@@ -6,6 +6,7 @@ A test to see if ItemsAdder can be made to support Geyser bedrock automatically!
 
 # How?
 Simple, I already have an auto block converter ( Written in Python ) and the java2bedrock.sh converter! So hopefully it could work!
+The auto block converter works like this, it takes a template with placeholders in it, and fills them out, so far, it only does basic blocks, no custom models, we can support them by doing the same thing blockbench does with converting java to bedrock and vise-versa but for now, only items...
 
 # What can I do with this plugins source code?
 You can use this for:
