@@ -1,6 +1,9 @@
 # WARNING
 The server side of this application has'nt been completed yet... So this plugin will not work!
 
+# Im working on the Server-Side implementation at the moment!
+No updates will be pushed to this branch for a litle, check out server branch tho!
+
 # iageyser/ItemsAdder Geyser
 A test to see if ItemsAdder can be made to support Geyser bedrock automatically!
 
